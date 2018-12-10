@@ -13,9 +13,6 @@ if (MSVC)
     add_definitions(-DNOMINMAX)
 endif()
 
-# here we fix the code generation thrift error
-file(APPEND variant_types.cpp "bool variant::Variant::operator<(const variant::Variant &) const { return false; }")
-
 add_definitions(-DUSE_STD_THREAD)
 if (MSVC)
   option(BUILD_COMPILER "" OFF)
