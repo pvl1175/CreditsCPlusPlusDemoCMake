@@ -53,6 +53,7 @@ add_executable(main
 	base58.cpp
 	variant_constants.cpp
 	variant_types.cpp
+	variant_aux.cpp
 	main.cpp
 )
 
