@@ -14,8 +14,7 @@ rm variant_constants.h
 rm variant_types.h
 
 git clone https://github.com/CREDITSCOM/CS-API
-thrift --gen cpp -out . ./CS-API/api.thrift
-thrift --gen cpp -out . ./CS-API/variant.thrift
+thrift-0.11.0 -r -gen cpp:no_skeleton,pure_enums,moveable_types -out . .\CS-API\api.thrift
 
 git clone https://github.com/apache/thrift.git
 

@@ -1,5 +1,10 @@
 #include <iostream>
 #include <memory>
+#include <chrono>
+#include <ctime>
+#include <array>
+
+#include "ed25519\src\ed25519.h"
 
 #include <thrift/stdcxx.h>
 #include <thrift/transport/TSocket.h>
@@ -7,12 +12,32 @@
 #include <thrift/protocol/TBinaryProtocol.h>
 
 #include "base58.h"
-
 #include "API.h"
 
 using namespace apache::thrift::transport;
 using namespace apache::thrift::protocol;
 using namespace api;
+
+class ac
+{
+public:
+	static std::string address(const char* sa)
+	{
+		std::vector<byte> evec;
+		DecodeBase58(sa, evec);
+		std::string dst(evec.size(), 0);
+		// memcpy_s((void*)dst.c_str(), vec.size(), &(vec[0]), vec.size());
+		memcpy((void*)dst.c_str(), &(evec[0]), evec.size());
+		return dst;
+	}
+
+	template<typename T>
+	static void copy(std::vector<byte>& src, T& val)
+	{
+		auto a = to_bytes(std::addressof(val));
+		std::copy(std::begin(a), std::end(a), std::back_inserter(src));
+	}
+};
 
 int main()
 {
@@ -34,21 +59,15 @@ int main()
 	{
 		std::cout << "Transport was opened" << std::endl;
 
-		const char* rs = "H5ptdUUfjJBGiK2X3gN2EzNYxituCUUnXv2tiMdQKP3b";
-		std::string str = EncodeBase58((unsigned char*)rs, (unsigned char*)rs + strlen(rs));
+		const char* ssa = "5B3YXqDTcWQFGAqEJQJP3Bg1ZK8FFtHtgCiFLT5VAxpe";
+		Address sa = ac::address(ssa);
 
-		std::vector<unsigned char> vec;
-		auto arr = DecodeBase58(rs, vec);
-		std::string dst(vec.size(), 0);
-		// memcpy_s((void*)dst.c_str(), vec.size(), &(vec[0]), vec.size());
-		memcpy((void*)dst.c_str(), &(vec[0]), vec.size());
-
-		Address          addr = dst;
-		Currency         cur = 'cs';
-		BalanceGetResult bg_res;
+		WalletBalanceGetResult bg_res;
+		PoolHash ph;
+		TransactionFlowResult tr_res;
 		try
 		{
-			api->BalanceGet(bg_res, addr, cur);
+			api->WalletBalanceGet(bg_res, sa);
 		}
 		catch (...)
 		{

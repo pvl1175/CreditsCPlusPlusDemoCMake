@@ -34,6 +34,7 @@ option(WITH_STDTHREADS "" ON)
 option(WITH_LIBEVENT "" OFF)
 option(WITH_OPENSSL "" OFF)
 add_subdirectory(thrift)
+add_subdirectory(ed25519)
 
 find_package(Boost 1.68 REQUIRED)
 
@@ -45,17 +46,18 @@ add_executable(main
 	api_types.h
 	API.h
 	base58.h
-	variant_constants.h
-	variant_types.h
+	general_constants.h
+	general_types.h
 	api_constants.cpp
 	api_types.cpp
 	API.cpp
 	base58.cpp
-	variant_constants.cpp
-	variant_types.cpp
+	general_constants.cpp
+	general_types.cpp
 	variant_aux.cpp
 	main.cpp
 )
 
 target_link_libraries(main ${Boost_LIBRARIES})
+target_link_libraries(main ed25519)
 target_link_libraries(main thrift_static)
