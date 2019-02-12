@@ -50,17 +50,17 @@ The CXX compiler identification is MSVC, found in "d:/dev/credits/API/CreditsCPl
 Determining if the C compiler works passed with the following output:
 Change Dir: d:/dev/credits/API/CreditsCPlusPlusDemoCMake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_ddf33"
-[1/2] Building C object CMakeFiles\cmTC_ddf33.dir\testCCompiler.c.obj
-[2/2] Linking C executable cmTC_ddf33.exe
+Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_3bfaa"
+[1/2] Building C object CMakeFiles\cmTC_3bfaa.dir\testCCompiler.c.obj
+[2/2] Linking C executable cmTC_3bfaa.exe
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: d:/dev/credits/API/CreditsCPlusPlusDemoCMake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_1da01"
-[1/2] Building C object CMakeFiles\cmTC_1da01.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_1da01.exe
+Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_ad143"
+[1/2] Building C object CMakeFiles\cmTC_ad143.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_ad143.exe
 
 
 
@@ -68,9 +68,9 @@ Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICRO
 Detecting C [] compiler features compiled with the following output:
 Change Dir: d:/dev/credits/API/CreditsCPlusPlusDemoCMake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_bef92"
-[1/2] Building C object CMakeFiles\cmTC_bef92.dir\feature_tests.c.obj
-[2/2] Linking C executable cmTC_bef92.exe
+Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_49d5e"
+[1/2] Building C object CMakeFiles\cmTC_49d5e.dir\feature_tests.c.obj
+[2/2] Linking C executable cmTC_49d5e.exe
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -78,17 +78,17 @@ Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICRO
 Determining if the CXX compiler works passed with the following output:
 Change Dir: d:/dev/credits/API/CreditsCPlusPlusDemoCMake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_d3144"
-[1/2] Building CXX object CMakeFiles\cmTC_d3144.dir\testCXXCompiler.cxx.obj
-[2/2] Linking CXX executable cmTC_d3144.exe
+Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_d9738"
+[1/2] Building CXX object CMakeFiles\cmTC_d9738.dir\testCXXCompiler.cxx.obj
+[2/2] Linking CXX executable cmTC_d9738.exe
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: d:/dev/credits/API/CreditsCPlusPlusDemoCMake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_cff55"
-[1/2] Building CXX object CMakeFiles\cmTC_cff55.dir\CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_cff55.exe
+Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_3570e"
+[1/2] Building CXX object CMakeFiles\cmTC_3570e.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_3570e.exe
 
 
 
@@ -96,9 +96,9 @@ Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICRO
 Detecting CXX [] compiler features compiled with the following output:
 Change Dir: d:/dev/credits/API/CreditsCPlusPlusDemoCMake/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_09f0b"
-[1/2] Building CXX object CMakeFiles\cmTC_09f0b.dir\feature_tests.cxx.obj
-[2/2] Linking CXX executable cmTC_09f0b.exe
+Run Build Command:"C:/PROGRA~2/MICROS~1/2017/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe" "cmTC_74d87"
+[1/2] Building CXX object CMakeFiles\cmTC_74d87.dir\feature_tests.cxx.obj
+[2/2] Linking CXX executable cmTC_74d87.exe
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
