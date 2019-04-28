@@ -11,8 +11,8 @@
 #include <thrift/transport/TBufferTransports.h>
 #include <thrift/protocol/TBinaryProtocol.h>
 
-#include "base58.h"
-#include "API.h"
+#include "common/base58.h"
+#include "api/API.h"
 
 using namespace apache::thrift::transport;
 using namespace apache::thrift::protocol;
@@ -41,7 +41,7 @@ public:
 
 int main()
 {
-	std::shared_ptr<TSocket> socket = std::shared_ptr<TSocket>(new TSocket("127.0.0.1", 9090));
+	std::shared_ptr<TSocket> socket = std::shared_ptr<TSocket>(new TSocket("169.38.89.217", 9090));
 	std::shared_ptr<TTransport> transport = std::shared_ptr<TTransport>(new TBufferedTransport(socket));
 	std::shared_ptr<TProtocol> protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(transport));
 	std::shared_ptr<APIClient> api = std::shared_ptr<APIClient>(new APIClient(protocol));
@@ -60,7 +60,7 @@ int main()
 		std::cout << "Transport was opened" << std::endl;
 
 		const char* ssa = "5B3YXqDTcWQFGAqEJQJP3Bg1ZK8FFtHtgCiFLT5VAxpe";
-		Address sa = ac::address(ssa);
+		general::Address sa = ac::address(ssa);
 
 		WalletBalanceGetResult bg_res;
 		PoolHash ph;

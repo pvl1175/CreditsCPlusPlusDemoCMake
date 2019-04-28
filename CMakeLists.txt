@@ -42,19 +42,19 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories("./thrift/lib/cpp/src")
 
 add_executable(main
-	api_constants.h
-	api_types.h
-	API.h
-	base58.h
-	general_constants.h
-	general_types.h
-	api_constants.cpp
-	api_types.cpp
-	API.cpp
-	base58.cpp
-	general_constants.cpp
-	general_types.cpp
-	variant_aux.cpp
+	./api/api_constants.h
+	./api/api_types.h
+	./api/API.h
+	./common/base58.h
+	./api/general_constants.h
+	./api/general_types.h
+	./api/api_constants.cpp
+	./api/api_types.cpp
+	./api/API.cpp
+	./common/base58.cpp
+	./api/general_constants.cpp
+	./api/general_types.cpp
+	./common/variant_aux.cpp
 	main.cpp
 )
 
