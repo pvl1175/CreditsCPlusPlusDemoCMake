@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if (MSVC)
     set(BOOST_ROOT d:/boost)
 else()
-    set(BOOST_ROOT ~/boost)
+    set(BOOST_ROOT ~/tmp/boost_1_69_0)
 endif()
 
 if (MSVC)
