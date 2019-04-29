@@ -15,8 +15,7 @@ cd ..
 mkdir build64
 cd build64
 
--DCMAKE_BUILD_TYPE=Release
-cmake -DCMAKE_BUILD_TYPE=Release .. -A x64 
+cmake .. -A x64 
 cmake  --build . --config Debug
 cmake  --build . --config Release
 
