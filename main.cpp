@@ -59,7 +59,7 @@ int main()
 	{
 		std::cout << "Transport was opened" << std::endl;
 
-		const char* ssa = "your address";
+		const char* ssa = "your public key";
 		general::Address sa = ac::address(ssa);
 
 		WalletBalanceGetResult bg_res;
