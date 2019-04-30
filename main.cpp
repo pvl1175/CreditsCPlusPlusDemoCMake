@@ -4,7 +4,7 @@
 #include <ctime>
 #include <array>
 
-#include "ed25519\src\ed25519.h"
+#include "ed25519/src/ed25519.h"
 
 #include <thrift/stdcxx.h>
 #include <thrift/transport/TSocket.h>
