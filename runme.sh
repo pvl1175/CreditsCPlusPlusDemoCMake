@@ -1,1 +1,1 @@
-.\build64\main
+./build64/main
