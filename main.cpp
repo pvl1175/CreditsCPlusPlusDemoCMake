@@ -4,9 +4,6 @@
 #include <ctime>
 #include <array>
 
-#define __STDC_WANT_LIB_EXT1__ 1
-#include <string>
-
 #include "ed25519/src/ed25519.h"
 
 #include <thrift/stdcxx.h>
@@ -29,7 +26,7 @@ public:
 		std::vector<unsigned char> evec;
 		DecodeBase58(sa, evec);
 		std::string dst(evec.size(), 0);
-		 memcpy_s((void*)dst.c_str(), dst.size(), &(evec[0]), evec.size());
+		memcpy((void*)dst.c_str(), &(evec[0]), evec.size());
 		return dst;
 	}
 };
