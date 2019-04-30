@@ -1,1 +1,1 @@
-.\build64\release\main
+.\build64\main
