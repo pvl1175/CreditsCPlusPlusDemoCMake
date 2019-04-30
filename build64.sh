@@ -5,7 +5,7 @@ rm -r -f api
 
 git clone https://github.com/CREDITSCOM/CS-API
 mkdir api
-thrift -r -gen cpp:no_skeleton,pure_enums,moveable_types -out .\api .\CS-API\api.thrift
+thrift -r -gen cpp:no_skeleton,pure_enums,moveable_types -out ./api ./CS-API/api.thrift
 
 git clone https://github.com/apache/thrift.git
 cd thrift
