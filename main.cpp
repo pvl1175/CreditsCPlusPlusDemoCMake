@@ -23,25 +23,17 @@ class ac
 public:
 	static std::string address(const char* sa)
 	{
-		std::vector<byte> evec;
+		std::vector<unsigned char> evec;
 		DecodeBase58(sa, evec);
 		std::string dst(evec.size(), 0);
-		// memcpy_s((void*)dst.c_str(), vec.size(), &(vec[0]), vec.size());
-		memcpy((void*)dst.c_str(), &(evec[0]), evec.size());
+		 memcpy_s((void*)dst.c_str(), dst.size(), &(evec[0]), evec.size());
 		return dst;
-	}
-
-	template<typename T>
-	static void copy(std::vector<byte>& src, T& val)
-	{
-		auto a = to_bytes(std::addressof(val));
-		std::copy(std::begin(a), std::end(a), std::back_inserter(src));
 	}
 };
 
 int main()
 {
-	std::shared_ptr<TSocket> socket = std::shared_ptr<TSocket>(new TSocket("127.0.0.1", 9090));
+	std::shared_ptr<TSocket> socket = std::shared_ptr<TSocket>(new TSocket("169.38.89.217", 9090));
 	std::shared_ptr<TTransport> transport = std::shared_ptr<TTransport>(new TBufferedTransport(socket));
 	std::shared_ptr<TProtocol> protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(transport));
 	std::shared_ptr<APIClient> api = std::shared_ptr<APIClient>(new APIClient(protocol));
@@ -59,7 +51,7 @@ int main()
 	{
 		std::cout << "Transport was opened" << std::endl;
 
-		const char* ssa = "your public key";
+		const char* ssa = "5B3YXqDTcWQFGAqEJQJP3Bg1ZK8FFtHtgCiFLT5VAxpe";
 		general::Address sa = ac::address(ssa);
 
 		WalletBalanceGetResult bg_res;
