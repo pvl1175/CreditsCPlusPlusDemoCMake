@@ -3,13 +3,12 @@ rmdir /S /Q CS-API
 rmdir /S /Q thrift
 rmdir /S /Q api
 
-git clone https://github.com/CREDITSCOM/CS-API
+git clone https://github.com/CREDITSCOM/thrift-interface-definitions
 mkdir api
-thrift -r -gen cpp:no_skeleton,pure_enums,moveable_types -out .\api .\CS-API\api.thrift
+thrift -r -gen cpp:no_skeleton,pure_enums,moveable_types -out .\api .\thrift-interface-definitions\api.thrift
 
-git clone https://github.com/apache/thrift.git
+git clone https://github.com/CREDITSCOM/thrift
 cd thrift
-git checkout 0.12.1
 
 cd ..
 mkdir build64
