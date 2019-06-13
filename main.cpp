@@ -4,7 +4,7 @@
 #include <ctime>
 #include <array>
 
-#include "ed25519/src/ed25519.h"
+#include <sodium.h>
 
 #include <thrift/stdcxx.h>
 #include <thrift/transport/TSocket.h>
@@ -20,6 +20,8 @@ using namespace api;
 
 #define MESSAGE_LEN   86
 #define SIGNATURE_LEN 64
+#define PUB_KEY_LEN 32
+#define PRV_KEY_LEN 64
 
 short Fee(double value)
 {
@@ -52,9 +54,15 @@ void cp(unsigned char* src,  unsigned char* dst, int offset)
 	}
 }
 
-int main()
+int main(int argc, char* argv[])
 {
-	std::shared_ptr<TSocket> socket = std::shared_ptr<TSocket>(new TSocket("169.38.89.217", 9090));
+	if (argc != 5)
+	{
+		std::cout << "Usage: main.exe NodeIpAddress YourPublicKey YourPrivateKey TargetPublicKey" << std::endl;
+		return 1;
+	}
+
+	std::shared_ptr<TSocket> socket = std::shared_ptr<TSocket>(new TSocket(argv[1], 9090));
 	std::shared_ptr<TTransport> transport = std::shared_ptr<TTransport>(new TBufferedTransport(socket));
 	std::shared_ptr<TProtocol> protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(transport));
 	std::shared_ptr<APIClient> api = std::shared_ptr<APIClient>(new APIClient(protocol));
@@ -72,26 +80,26 @@ int main()
 	{
 		std::cout << "Transport was opened" << std::endl;
 
-		keys ks("9onQndywomSUr6iYKA2MS5pERcTJwEuUJys1iKNu13cH",
-			   "4xVSMfNdGTdn32QHRoxx7GVUdRCUnqvpF5jDTxkvNzwpDNpiW27taPrQ9QjDacuH9GpU8SJA8XSR9Pb8o2H4GXp1",
-			   "H5ptdUUfjJBGiK2X3gN2EzNYxituCUUnXv2tiMdQKP3b");
+		keys ks(argv[2],
+				argv[3],
+				argv[4]);
 
 		try
 		{
 			WalletBalanceGetResult bg_res;
 			TransactionFlowResult tr_res;
 
-			api->WalletBalanceGet(bg_res, ks.PublicKeyBytes());
+			api->WalletBalanceGet(bg_res, ks.PublicKeyAddress());
 			bg_res.printTo(std::cout);
 
 			WalletTransactionsCountGetResult wtcgr;
-			auto& pka = ks.PublicKeyBytes();
+			auto& pka = ks.PublicKeyAddress();
 			api->WalletTransactionsCountGet(wtcgr, pka);
 
 			Transaction tr;
 			tr.id = wtcgr.lastTransactionInnerId + 1;
-			tr.source = ks.PublicKeyBytes();
-			tr.target = ks.TargetPublicKeyBytes();
+			tr.source = std::string{ ks.PublicKeyAddress() };
+			tr.target = std::string{ ks.TargetPublicKeyAddress() };
 			tr.amount.integral = 1;
 			tr.amount.fraction = 0;
 			tr.fee.commission = Fee(0.9);
@@ -99,37 +107,32 @@ int main()
 
 			unsigned char message[MESSAGE_LEN];
 			unsigned char signature[SIGNATURE_LEN];
+			unsigned char src[PUB_KEY_LEN];
+			unsigned char trg[PUB_KEY_LEN];
+			unsigned char prv[PRV_KEY_LEN];
 
-			unsigned char* source = reinterpret_cast<unsigned char*>((char*)tr.source.c_str());
-			unsigned char* target = reinterpret_cast<unsigned char*>((char*)tr.target.c_str());
-			unsigned char* pk = reinterpret_cast<unsigned char*>((char*)ks.PrivateKeyBytes().c_str());
+			memcpy(src, (unsigned char*)tr.source.c_str(), 32);
+			memcpy(trg, (unsigned char*)tr.target.c_str(), 32);
+			memcpy(prv, (unsigned char*)ks.PrivateKeyAddress().c_str(), 64);
 
 			memcpy(message, &tr.id, 6);
-			cp(source, message, 6);
-			cp(target, message, 38);
+			cp(src, message, 6);
+			cp(trg, message, 38);
 			memcpy(message + 70, &tr.amount.integral, 4);
 			memcpy(message + 74, &tr.amount.fraction, 8);
 			memcpy(message + 82, &tr.fee.commission, 2);
 			message[84] = 1;
 			message[85] = 0;
 
-			unsigned char seed[32];
-			if (ed25519_create_seed(seed)) {
-				printf("error while generating seed\n");
-				exit(1);
+			unsigned long long signatureLen;
+			crypto_sign_detached(signature, &signatureLen, message, MESSAGE_LEN, prv);
+
+			if (crypto_sign_verify_detached(signature, message, MESSAGE_LEN, src) != 0) {
+				std::cout << "Incorrect signature!" << std::endl;
+				return 1;
 			}
 
-			ed25519_create_keypair(source, pk, seed);
-			ed25519_sign(signature, message, MESSAGE_LEN, source, pk);
-
-			if (ed25519_verify(signature, message, MESSAGE_LEN, source)) {
-				printf("valid signature\n");
-			}
-			else {
-				printf("invalid signature\n");
-			}
-
-			tr.signature = reinterpret_cast<char*>(signature);
+			tr.signature = std::string{ reinterpret_cast<char*>(signature), SIGNATURE_LEN };
 
 			TransactionFlowResult tfr;
 			api->TransactionFlow(tfr, tr);
